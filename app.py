@@ -2,7 +2,7 @@ import os
 from flask import Flask, jsonify
 app = Flask(__name__)
 
-VERSION = "1.0.0"
+VERSION = os.environ.get("APP_VERSION", "1.0.0")
 
 
 @app.route("/health")
