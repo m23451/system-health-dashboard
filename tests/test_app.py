@@ -8,7 +8,7 @@ def get(path):
 def test_health_returns_up():
     r = get("/health")
     assert r.status_code == 200
-    assert r.get_json()["status"] == "DOWN"
+    assert r.get_json()["status"] == "UP"
 
 
 def test_version_returns_version():
