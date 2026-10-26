@@ -81,3 +81,5 @@ The `Jenkinsfile` defines these stages:
 To run it: create a Pipeline job, choose "Pipeline script from SCM", set the
 repository URL, branch `*/main`, and Script Path `Jenkinsfile`. The Jenkins
 agent needs Git, Python 3 with venv, and access to Docker.
+
+NOTE: I employed the use of AI (Claude) as a guide to plan and complete the project, covering the Git branching workflow, the structure of the Flask application and tests, the Dockerfile and .dockerignore, the Jenkinsfile, setting up Jenkins in Docker, and troubleshooting errors along the way. AI provided example code and step-by-step instructions, which I ran, tested and adapted. I carried out all Git operations, builds and pipeline runs myself, and I understand and can explain every submitted file.
