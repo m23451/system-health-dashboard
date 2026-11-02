@@ -56,7 +56,7 @@ pipeline {
             }
         }
 
-        stage('Smoke test (staging)') {
+        stage('Test (staging)') {
             steps { sh 'bash scripts/smoke_test.sh http://app-staging:5000' }
         }
 
