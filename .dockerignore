@@ -7,3 +7,8 @@ __pycache__
 tests
 Jenkinsfile
 README.md
+monitoring
+scripts
+docker-compose.staging.yml
+docker-compose.production.yml
+.env

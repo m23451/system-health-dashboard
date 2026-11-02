@@ -1,0 +1,21 @@
+services:
+  app-staging:
+    image: system-health-dashboard:${IMAGE_TAG:-local}
+    container_name: app-staging
+    ports:
+      - "5001:5000"
+    environment:
+      ENVIRONMENT: staging
+      APP_VERSION: ${APP_VERSION:-2.0.0}
+      ENABLE_FAULT_INJECTION: ${ENABLE_FAULT_INJECTION:-false}
+    labels:
+      app: system-health
+      environment: staging
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    external: true
+    name: shd-monitoring
