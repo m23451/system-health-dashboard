@@ -1,0 +1,21 @@
+services:
+  app-production:
+    image: system-health-dashboard:${IMAGE_TAG:-local}
+    container_name: app-production
+    ports:
+      - "5002:5000"
+    environment:
+      APP_ENV: production
+      APP_VERSION: ${APP_VERSION:-2.0.0}
+      ENABLE_FAULT_INJECTION: ${ENABLE_FAULT_INJECTION:-false}
+    labels:
+      app: system-health
+      environment: production
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    external: true
+    name: shd-monitoring

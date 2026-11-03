@@ -1,0 +1,20 @@
+groups:
+  - name: system-health
+    rules:
+      - alert: ServiceDown
+        expr: up{job="system-health"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "{{ $labels.environment }} service is down"
+
+      - alert: HighErrorRate
+        expr: |
+          sum by (environment) (rate(http_requests_total{status=~"5.."}[2m]))
+            / sum by (environment) (rate(http_requests_total[2m])) > 0.05
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $labels.environment }} error rate above 5% for 2 minutes"
