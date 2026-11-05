@@ -14,14 +14,8 @@ pipeline {
 
     stages {
         stage('Checkout') {
-    steps {
-        script {
-            def scmVars = checkout scm
-            env.BRANCH_REF = scmVars.GIT_BRANCH ?: ''
-            echo "Building branch: ${env.BRANCH_REF}"
+            steps { checkout scm }
         }
-    }
-}
 
         stage('Install') {
             steps {
@@ -84,7 +78,7 @@ pipeline {
         }
 
         stage('Approval gate') {
-            when { expression { env.BRANCH_REF in ['origin/main', 'main'] } }
+            when { expression { env.GIT_BRANCH in ['origin/main', 'main'] } }
             steps {
                 timeout(time: 30, unit: 'MINUTES') {
                     script {
@@ -100,7 +94,7 @@ pipeline {
         }
 
         stage('Deploy to Production') {
-            when { expression { env.BRANCH_REF in ['origin/main', 'main'] } }
+            when { expression { env.GIT_BRANCH in ['origin/main', 'main'] } }
             steps {
                 script {
                     env.DEPLOY_TARGET = 'production'
@@ -116,7 +110,7 @@ pipeline {
         }
 
         stage('Smoke test (production)') {
-            when { expression { env.BRANCH_REF in ['origin/main', 'main'] } }
+            when { expression { env.GIT_BRANCH in ['origin/main', 'main'] } }
             steps { sh 'bash scripts/smoke_test.sh http://app-production:5000' }
         }
     }
